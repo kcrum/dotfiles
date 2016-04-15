@@ -1,0 +1,11 @@
+# Ignore everything!
+*
+
+# ...except certain files:
+!.gitignore
+!.gitconfig
+!.git-completion.bash
+!.bash_profile
+!.bashrc
+!.emacs
+!.inputrc
