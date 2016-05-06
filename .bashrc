@@ -37,6 +37,7 @@ alias envlist="conda env list"
 alias py34="source activate py34; cd ."
 alias rootenv="source activate root; cd ."
 alias automodeler="source activate automodeler; cd ~/src/automodeler/automodeler/"
+alias paro="source activate paro; cd ~/src/paro/paro/"
 # misspellings
 alias emcas="emacs"
 alias emasc="emacs"

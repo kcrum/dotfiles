@@ -29,8 +29,7 @@
 (define-key global-map [home] 'beginning-of-line)
 (define-key global-map [end] 'end-of-line)
 
-
-(add-to-list 'load-path "/Users/kcrum/.emacs.d/ess/lisp/")
+(add-to-list 'load-path "~/.emacs.d/ess/lisp/")
 (load "ess-site")
 
 ;; Do whitespace cleanup when saving file
@@ -58,6 +57,7 @@
     ess    ;; highlighting for stats modes (e.g. R, stata)
     markdown-mode
     yaml-mode
+    flycheck
     material-theme
     ample-theme))
 
@@ -69,7 +69,7 @@
 
 ;; BASIC CUSTOMIZATION
 ;; --------------------------------------
-
+(global-flycheck-mode)
 (setq inhibit-startup-message t) ;; hide the startup message
 (load-theme 'material t) ;; load material theme
 ;(global-linum-mode t) ;; enable line numbers globally
