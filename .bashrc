@@ -32,12 +32,15 @@ alias mv="mv -i"
 alias dragonfly="ssh kcrum@10.117.128.123"
 alias diff="diff -s"
 alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+alias civpass="echo -n $PLATFORM_PASSWORD | pbcopy"
 # Conda aliases
 alias envlist="conda env list"
 alias py34="source activate py34; cd ."
 alias rootenv="source activate root; cd ."
 alias automodeler="source activate automodeler; cd ~/src/automodeler/automodeler/"
 alias paro="source activate paro; cd ~/src/paro/paro/"
+alias civismodel="source activate civis-model; cd ~/src/civis-model/civismodel/"
+alias nn_sandbox="source activate nn_sandbox; cd ~/coding_space/nn_sandbox/"
 # misspellings
 alias emcas="emacs"
 alias emasc="emacs"
@@ -68,7 +71,7 @@ Xcd ()
       printf "\033]0;${NAME}\007"
   fi
 
-  export PS1="\[\e[1;208m\][${CONDA_DEFAULT_ENV}]\[\e[m\]\[\e[1;34m\]${NAME}\[\e[m\] \[\e[1;32m\]>\[\e[m\] "
+  export PS1="\[\e[1;208m\][${CONDA_DEFAULT_ENV##*/}]\[\e[m\]\[\e[1;34m\]${NAME}\[\e[m\] \[\e[1;32m\]>\[\e[m\] "
 }
 
 Xcd .

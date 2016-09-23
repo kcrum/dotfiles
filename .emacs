@@ -8,7 +8,10 @@
 (global-set-key "\M-g" 'goto-line)
 
 ;; set the English dictionary for hunspell
-(setenv "DICTIONARY" "en_GB")
+(setenv "DICTIONARY" "english")
+
+;; add .pyx files to python mode
+(add-to-list 'auto-mode-alist '("\\.pyx\\'" . python-mode))
 
 ;;
 ;; Scheme setup
@@ -58,6 +61,7 @@
     markdown-mode
     yaml-mode
     flycheck
+    flyspell
     material-theme
     ample-theme))
 
@@ -69,12 +73,14 @@
 
 ;; BASIC CUSTOMIZATION
 ;; --------------------------------------
-(global-flycheck-mode)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
+
 (setq inhibit-startup-message t) ;; hide the startup message
 (load-theme 'material t) ;; load material theme
 ;(global-linum-mode t) ;; enable line numbers globally
 (elpy-enable) ;; use elpy, which does python autocomplete and autoindent (among
-;; other features
+
 
 
 (custom-set-variables
