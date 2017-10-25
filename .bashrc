@@ -3,6 +3,8 @@ source ~/.bash_passwords
 source ~/.git-completion.bash
 # Set editor
 export EDITOR=/usr/bin/emacs
+# Put your binaries in the path
+export PATH=/Users/kcrum/bin/:$PATH
 
 ### Add anaconda to PATH. ---> Should you now delete this? It's not really
 ### under your package manager, and you've separately downloaded all of the
@@ -29,18 +31,24 @@ export DYLD_FALLBACK_LIBRARY_PATH=/Users/kcrum/miniconda3/envs/automodeler/lib/:
 alias ll="ls -lh"
 alias cp="cp -i"
 alias mv="mv -i"
-alias dragonfly="ssh kcrum@10.117.128.123"
 alias diff="diff -s"
 alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 alias civpass="echo -n $PLATFORM_PASSWORD | pbcopy"
+alias dockerpass="echo -n $DOCKER_PASSWORD | pbcopy"
 # Conda aliases
 alias envlist="conda env list"
-alias py34="source activate py34; cd ."
 alias rootenv="source activate root; cd ."
 alias automodeler="source activate automodeler; cd ~/src/automodeler/automodeler/"
 alias paro="source activate paro; cd ~/src/paro/paro/"
+alias kiwi="source activate kiwi; cd ~/src/kiwi/kiwi/"
 alias civismodel="source activate civis-model; cd ~/src/civis-model/civismodel/"
-alias nn_sandbox="source activate nn_sandbox; cd ~/coding_space/nn_sandbox/"
+alias nn_sandbox="source activate nn_sandbox; cd ~/coding_space/sandbox/nn_sandbox/"
+alias sandbox="source activate sandbox; cd ~/coding_space/sandbox/"
+alias surveys="source activate surveys; cd ~/src/Survey-Client/"
+alias psb="source activate psb_predict; cd ~/src/psb_process_predict_job/; export AWS_ACCESS_KEY_ID=$AWS_LEGACY_KEY_ID; AWS_SECRET_ACCESS_KEY=$AWS_LEGACY_SECRET_ACCESS_KEY"
+alias cmo="source activate cmo; cd /Users/kcrum/src/civis-optimize/"
+alias weighting="source activate weighting; cd /Users/kcrum/src/survey-weighting"
+alias testgeo="export DYLD_FALLBACK_LIBRARY_PATH=/lib:/usr/local/lib:/lib:/usr/lib; source activate testgeo; cd ."
 # misspellings
 alias emcas="emacs"
 alias emasc="emacs"

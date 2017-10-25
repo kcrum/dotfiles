@@ -58,6 +58,8 @@
   '(better-defaults
     elpy
     ess    ;; highlighting for stats modes (e.g. R, stata)
+    go-mode
+    json-reformat
     markdown-mode
     yaml-mode
     flycheck
