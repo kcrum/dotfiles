@@ -32,8 +32,8 @@
 (define-key global-map [home] 'beginning-of-line)
 (define-key global-map [end] 'end-of-line)
 
-(add-to-list 'load-path "~/.emacs.d/ess/lisp/")
-(load "ess-site")
+; (add-to-list 'load-path "~/.emacs.d/ess/lisp/")
+; (load "ess-site")
 
 ;; Do whitespace cleanup when saving file
 (add-hook 'before-save-hook 'whitespace-cleanup)
