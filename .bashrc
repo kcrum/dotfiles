@@ -5,6 +5,14 @@ source ~/.git-completion.bash
 export EDITOR=/usr/bin/emacs
 # Put your binaries in the path
 export PATH=/Users/kcrum/bin/:$PATH
+# Set Spark home, put Spark in path
+export SPARK_HOME=/opt/spark
+export PATH=$SPARK_HOME/bin:$PATH
+# The below two variables mean calling `pyspark` will launch a jupyter notebook
+# with the appropriate SparkContext set.
+export PYSPARK_DRIVER_PYTHON=jupyter
+export PYSPARK_DRIVER_PYTHON_OPTS='notebook'
+
 
 ### Add anaconda to PATH. ---> Should you now delete this? It's not really
 ### under your package manager, and you've separately downloaded all of the
@@ -49,6 +57,9 @@ alias psb="source activate psb_predict; cd ~/src/psb_process_predict_job/; expor
 alias cmo="source activate cmo; cd /Users/kcrum/src/civis-optimize/"
 alias weighting="source activate weighting; cd /Users/kcrum/src/survey-weighting"
 alias testgeo="export DYLD_FALLBACK_LIBRARY_PATH=/lib:/usr/local/lib:/lib:/usr/lib; source activate testgeo; cd ."
+alias model_deployment="source activate model_deployment; cd /Users/kcrum/src/model-deployment"
+alias muffnn="source activate muffnn; cd /Users/kcrum/src/muffnn"
+
 # misspellings
 alias emcas="emacs"
 alias emasc="emacs"
@@ -83,3 +94,6 @@ Xcd ()
 }
 
 Xcd .
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
