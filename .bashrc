@@ -1,4 +1,31 @@
 #### .bashrc ####
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alhF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+
+# My stuff below here...
 source ~/.bash_passwords
 source ~/.git-completion.bash
 # Set editor
@@ -13,43 +40,21 @@ export PATH=$SPARK_HOME/bin:$PATH
 export PYSPARK_DRIVER_PYTHON=jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS='notebook'
 
-
-### Add anaconda to PATH. ---> Should you now delete this? It's not really
-### under your package manager, and you've separately downloaded all of the
-### packages in the SciPy stack...
-#export PATH=/usr/local/anaconda/bin/:$PATH
+export PATH="/home/kcrum/miniconda3/bin:$PATH"
 
 # When psycopg2 was giving you trouble, you had this:
 # export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin/
 # so that pg_config was available when you called "pip install psycopg2"
 
-
-# Add mpl_toolkits to PYTHONPATH which contains Basemap (there is another
-# mpl_toolkits installed the python finds first which is missing Basemap).
-#PYTHONPATH=/usr/lib/pymodules/python2.7/:$PYTHONPATH
-
-# Add scikit-learn to PYTHONPATH --> NOW USING SKLEARN MANAGED BY pip
-#export PYTHONPATH=$PYTHONPATH:/Users/kcrum/coding_space/scikit-learn/
-
-# This next line is needed to make pyBayesTree work. Without it, symbols expected
-# in libstdc++.6.dylib will not be found.
-export DYLD_FALLBACK_LIBRARY_PATH=/Users/kcrum/miniconda3/envs/automodeler/lib/:$DYLD_FALLBACK_LIBRARY_PATH
-
 # User specific aliases and functions
-alias ll="ls -lh"
 alias cp="cp -i"
 alias mv="mv -i"
 alias diff="diff -s"
-alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
-alias civpass="echo -n $PLATFORM_PASSWORD | pbcopy"
-alias dockerpass="echo -n $DOCKER_PASSWORD | pbcopy"
+alias emacs="/usr/bin/emacs -nw"
+alias dockerpass="echo -n $DOCKER_PASSWORD | xclip -selection clipboard"
 # Conda aliases
 alias envlist="conda env list"
 alias rootenv="source activate root; cd ."
-alias automodeler="source activate automodeler; cd ~/src/automodeler/automodeler/"
-alias paro="source activate paro; cd ~/src/paro/paro/"
-alias kiwi="source activate kiwi; cd ~/src/kiwi/kiwi/"
-alias civismodel="source activate civis-model; cd ~/src/civis-model/civismodel/"
 alias nn_sandbox="source activate nn_sandbox; cd ~/coding_space/sandbox/nn_sandbox/"
 alias sandbox="source activate sandbox; cd ~/coding_space/sandbox/"
 alias surveys="source activate surveys; cd ~/src/Survey-Client/"
