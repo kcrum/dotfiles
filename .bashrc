@@ -29,7 +29,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 source ~/.bash_passwords
 source ~/.git-completion.bash
 # Set editor
-export EDITOR=/usr/bin/emacs
+export EDITOR=/Applications/Emacs.app/Contents/MacOS/Emacs
 # Put your binaries in the path
 export PATH=/Users/kcrum/bin/:$PATH
 # Set Spark home, put Spark in path
@@ -50,7 +50,7 @@ export PATH="/home/kcrum/miniconda3/bin:$PATH"
 alias cp="cp -i"
 alias mv="mv -i"
 alias diff="diff -s"
-alias emacs="/usr/bin/emacs -nw"
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 alias dockerpass="echo -n $DOCKER_PASSWORD | xclip -selection clipboard"
 # Conda aliases
 alias envlist="conda env list"
