@@ -60,17 +60,17 @@
 (defvar myPackages
   '(ample-theme
     better-defaults
-    company
+    company-irony
     elpy
     ess    ;; highlighting for stats modes (e.g. R, stata)
     flycheck
+    flycheck-irony
     flyspell
     go-mode
     irony
     json-reformat
     markdown-mode
     material-theme
-    req-package
     yaml-mode))
 
 ;; Install any packages not yet installed
@@ -89,53 +89,52 @@
 ;(global-linum-mode t) ;; enable line numbers globally
 (elpy-enable) ;; use elpy, which does python autocomplete and autoindent (among
 
-;;
-;; C++ configurations
-;;
-(require 'req-package)
+;; ===============
+;; == C++ setup ==
+;; ===============
+;; We'll use irony, flycheck, and company for editing C++
 
-(req-package irony
-             :config
-             (progn
-               ;; If irony server was never installed, install it.
-               (unless (irony--find-server-executable) (call-interactively #'irony-install-server))
+; this will cause problems when editing pure C:
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-hook 'after-init-hook 'global-company-mode)
 
-               (add-hook 'c++-mode-hook 'irony-mode)
-               (add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
 
-               ;; Use compilation database first, clang_complete as fallback.
-               (setq-default irony-cdb-compilation-databases '(irony-cdb-libclang
-                                                               irony-cdb-clang-complete))
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-               (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-               ))
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
 
-;; I use irony with company to get code completion.
-(req-package company-irony
-             :require company irony
-             :config
-             (progn
-               (eval-after-load 'company '(add-to-list 'company-backends 'company-irony))))
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
-;; I use irony with flycheck to get real-time syntax checking.
-(req-package flycheck-irony
-             :require flycheck irony
-             :config
-             (progn
-               (eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))))
-
-;; Eldoc shows argument list of the function you are currently writing in the echo area.
-(req-package irony-eldoc
-             :require eldoc irony
-             :config
-             (progn
-                     (add-hook 'irony-mode-hook #'irony-eldoc)))
-
-
-
-; also try cmake-ide?
-
-
+;; ==========================================
+;; (optional) bind TAB for indent-or-complete
+;; ==========================================
+(defun irony--check-expansion ()
+  (save-excursion
+    (if (looking-at "\\_>") t
+      (backward-char 1)
+      (if (looking-at "\\.") t
+        (backward-char 1)
+        (if (looking-at "->") t nil)))))
+(defun irony--indent-or-complete ()
+  "Indent or Complete"
+  (interactive)
+  (cond ((and (not (use-region-p))
+              (irony--check-expansion))
+         (message "complete")
+         (company-complete-common))
+        (t
+         (message "indent")
+         (call-interactively 'c-indent-line-or-region))))
+(defun irony-mode-keys ()
+  "Modify keymaps used by `irony-mode'."
+  (local-set-key (kbd "TAB") 'irony--indent-or-complete)
+  (local-set-key [tab] 'irony--indent-or-complete))
+(add-hook 'c-mode-common-hook 'irony-mode-keys)
 
 
 (custom-set-variables
