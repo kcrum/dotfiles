@@ -55,17 +55,20 @@
   (package-refresh-contents))
 
 (defvar myPackages
-  '(better-defaults
+  '(ample-theme
+    better-defaults
+    company-irony
     elpy
     ess    ;; highlighting for stats modes (e.g. R, stata)
+    flycheck
+    flycheck-irony
+    flyspell
     go-mode
+    irony
     json-reformat
     markdown-mode
-    yaml-mode
-    flycheck
-    flyspell
     material-theme
-    ample-theme))
+    yaml-mode))
 
 ;; Install any packages not yet installed
 (mapc #'(lambda (package)
@@ -82,6 +85,54 @@
 (load-theme 'material t) ;; load material theme
 ;(global-linum-mode t) ;; enable line numbers globally
 (elpy-enable) ;; use elpy, which does python autocomplete and autoindent (among
+
+
+;; ===============
+;; == C++ setup ==
+;; ===============
+;; We'll use irony, flycheck, and company for editing C++
+
+; this will cause problems when editing pure C:
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-hook 'after-init-hook 'global-company-mode)
+
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+;; ==========================================
+;; (optional) bind TAB for indent-or-complete
+;; ==========================================
+(defun irony--check-expansion ()
+  (save-excursion
+    (if (looking-at "\\_>") t
+      (backward-char 1)
+      (if (looking-at "\\.") t
+        (backward-char 1)
+        (if (looking-at "->") t nil)))))
+(defun irony--indent-or-complete ()
+  "Indent or Complete"
+  (interactive)
+  (cond ((and (not (use-region-p))
+              (irony--check-expansion))
+         (message "complete")
+         (company-complete-common))
+        (t
+         (message "indent")
+         (call-interactively 'c-indent-line-or-region))))
+(defun irony-mode-keys ()
+  "Modify keymaps used by `irony-mode'."
+  (local-set-key (kbd "TAB") 'irony--indent-or-complete)
+  (local-set-key [tab] 'irony--indent-or-complete))
+(add-hook 'c-mode-common-hook 'irony-mode-keys)
 
 
 
