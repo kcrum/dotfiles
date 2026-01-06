@@ -21,3 +21,5 @@ PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
+
+. "$HOME/.local/bin/env"

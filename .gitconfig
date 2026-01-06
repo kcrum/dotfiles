@@ -1,16 +1,19 @@
 [user]
-        name = Keith Myers-Crum
-        email = kcrum@civisanalytics.com
+	name = kcrum
+#		name = Keith Myers-Crum
+#		email = kcrum@civisanalytics.com
 [alias]
-        st = status
-        co = checkout
-        ci = commit
-        br = branch
-        lg = log -n10 --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+	st = status
+	dstat = diff --stat
+	co = checkout
+	ci = commit
+	br = branch
+	lg = log -n10 --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 [core]
-        editor = emacs
-        excludesfile = /Users/kcrum/.gitignore_global
+	editor = emacs
+	excludesfile = /Users/kcrum/.gitignore_global
 [filter "lfs"]
-        clean = git-lfs clean -- %f
-        smudge = git-lfs smudge -- %f
-        required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
